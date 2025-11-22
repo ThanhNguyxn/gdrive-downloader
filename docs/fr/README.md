@@ -78,7 +78,6 @@
 
 Documentation complète disponible en :
 
-- 🇺🇸 **[English](../en/)**
 - 🇻🇳 **[Tiếng Việt](../vi/)**
 - 🇫🇷 **[Français](../fr/)**
 - 🇪🇸 **[Español](../es/)**

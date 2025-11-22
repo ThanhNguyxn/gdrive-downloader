@@ -30,7 +30,7 @@
 // 3. Click bookmark when viewing any Doc
 ```
 
-👉 **[See detailed instructions →](docs/GOOGLE_DOCS.md)**
+👉 **[See detailed instructions →](GOOGLE_DOCS.md)**
 
 ---
 
@@ -45,7 +45,7 @@
 // Copy all data → Paste into Excel
 ```
 
-👉 **[See detailed instructions →](docs/GOOGLE_SHEETS.md)**
+👉 **[See detailed instructions →](GOOGLE_SHEETS.md)**
 
 ---
 
@@ -57,7 +57,7 @@
 // Choose: 1 slide per page (best quality)
 ```
 
-👉 **[See detailed instructions →](docs/GOOGLE_SLIDES.md)**
+👉 **[See detailed instructions →](GOOGLE_SLIDES.md)**
 
 ---
 
@@ -66,10 +66,10 @@
 | Document | Description |
 |----------|-------------|
 | **[Quick Start Guide](QUICKSTART.md)** | Get started in 2 minutes |
-| **[Google Docs Methods](docs/GOOGLE_DOCS.md)** | Complete guide for Docs |
-| **[Google Sheets Methods](docs/GOOGLE_SHEETS.md)** | Complete guide for Sheets |
-| **[Google Slides Methods](docs/GOOGLE_SLIDES.md)** | Complete guide for Slides |
-| **[Troubleshooting](docs/TROUBLESHOOTING.md)** | Common issues & solutions |
+| **[Google Docs Methods](GOOGLE_DOCS.md)** | Complete guide for Docs |
+| **[Google Sheets Methods](GOOGLE_SHEETS.md)** | Complete guide for Sheets |
+| **[Google Slides Methods](GOOGLE_SLIDES.md)** | Complete guide for Slides |
+| **[Troubleshooting](TROUBLESHOOTING.md)** | Common issues & solutions |
 | **[Contributing](CONTRIBUTING.md)** | How to contribute |
 
 ---
@@ -78,7 +78,6 @@
 
 Full documentation available in:
 
-- 🇺🇸 **[English](docs/en/)**
 - 🇻🇳 **[Tiếng Việt](docs/vi/)**
 - 🇫🇷 **[Français](docs/fr/)**
 - 🇪🇸 **[Español](docs/es/)**

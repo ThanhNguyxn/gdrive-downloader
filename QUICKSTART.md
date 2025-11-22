@@ -45,9 +45,9 @@
 
 See [README.md](README.md) for complete instructions in multiple languages.
 
-- [Google Docs Guide](docs/GOOGLE_DOCS.md)
-- [Google Sheets Guide](docs/GOOGLE_SHEETS.md)
-- [Google Slides Guide](docs/GOOGLE_SLIDES.md)
+- [Google Docs Guide](GOOGLE_DOCS.md)
+- [Google Sheets Guide](GOOGLE_SHEETS.md)
+- [Google Slides Guide](GOOGLE_SLIDES.md)
 
 ---
 
