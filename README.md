@@ -1,190 +1,180 @@
-# 📥 Google Drive View-Only File Downloader
+# 🚀 GDrive Downloader
 
-> Download or print view-only files from Google Drive - **Docs, Sheets, and Slides**
+> ⬇️ **Download view-only files from Google Drive** - Docs, Sheets, Slides, PDFs & Videos
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/ThanhNguyxn/google-drive-view-only-tools?style=social)](https://github.com/ThanhNguyxn/google-drive-view-only-tools)
+<p align="center">
+  <img src="https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Chrome Extension"/>
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License"/>
+  <img src="https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge" alt="Made with Love"/>
+</p>
 
----
-
-> **⚠️ Important Notice:** These methods are intended for legitimate personal use only, such as creating offline copies of documents you have legal access to. Always respect copyright and document ownership rights.
-
-## 🚀 Quick Start
-
-### For Google Docs
-
-**Method 1: Console Script** (Fastest)
-
-```javascript
-// 1. Open your view-only Google Doc
-// 2. Press F12 → Click "Console" tab
-// 3. Copy all content from script.js and paste
-// 4. Press Enter and wait for download
-```
-
-**Method 2: Bookmarklet** (Most convenient)
-
-```javascript
-// 1. Copy content from bookmarklet.js
-// 2. Create new bookmark, paste as URL
-// 3. Click bookmark when viewing any Doc
-```
-
-👉 **[See detailed instructions →](GOOGLE_DOCS.md)**
-
----
-
-### For Google Sheets
-
-```javascript
-// Quick Method: Print to PDF
-// Press Ctrl+P → Select "Save as PDF"
-
-// Alternative: HTML View
-// Change URL from /edit to /htmlview
-// Copy all data → Paste into Excel
-```
-
-👉 **[See detailed instructions →](GOOGLE_SHEETS.md)**
-
----
-
-### For Google Slides
-
-```javascript
-// Quick Method: Print to PDF
-// Press Ctrl+P → Select "Save as PDF"
-// Choose: 1 slide per page (best quality)
-```
-
-👉 **[See detailed instructions →](GOOGLE_SLIDES.md)**
-
----
-
-## 📚 Documentation
-
-| Document | Description |
-|----------|-------------|
-| **[Quick Start Guide](QUICKSTART.md)** | Get started in 2 minutes |
-| **[Google Docs Methods](GOOGLE_DOCS.md)** | Complete guide for Docs |
-| **[Google Sheets Methods](GOOGLE_SHEETS.md)** | Complete guide for Sheets |
-| **[Google Slides Methods](GOOGLE_SLIDES.md)** | Complete guide for Slides |
-| **[Troubleshooting](TROUBLESHOOTING.md)** | Common issues & solutions |
-| **[Contributing](CONTRIBUTING.md)** | How to contribute |
-
----
-
-## 🌍 Languages
-
-Full documentation available in:
-
-- 🇻🇳 **[Tiếng Việt](docs/vi/)**
-- 🇫🇷 **[Français](docs/fr/)**
-- 🇪🇸 **[Español](docs/es/)**
-- 🇨🇳 **[中文](docs/zh-CN/)**
+<p align="center">
+  <a href="https://buymeacoffee.com/thanhnguyxn">
+    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-☕-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee"/>
+  </a>
+  <a href="https://github.com/sponsors/ThanhNguyxn">
+    <img src="https://img.shields.io/badge/Sponsor-💖-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"/>
+  </a>
+</p>
 
 ---
 
 ## ✨ Features
 
-- ✅ **No installation required** - Pure JavaScript, copy & paste
-- ✅ **Multiple methods** - Find what works best for you
-- ✅ **High quality output** - Standard and high-resolution options
-- ✅ **All Google file types** - Docs, Sheets, Slides
-- ✅ **Multilingual** - 5 languages supported
-- ✅ **Privacy-friendly** - Runs locally in your browser
-- ✅ **Open source** - MIT License
+| 📂 File Type | 🛠️ Features |
+|--------------|-------------|
+| 📄 **Google Docs** | Download PDF, Extract Images, Mobile View |
+| 📊 **Google Sheets** | HTML View, CSV Export, Print to PDF |
+| 🎨 **Google Slides** | Download PDF, Extract Images, HTML Present |
+| 📑 **Protected PDFs** | Canvas + Blob capture, High-res mode |
+| 🎬 **Protected Videos** | Auto-detect Video & Audio URLs |
 
 ---
 
-## 📂 Available Scripts
+## 🔧 Installation
 
-| Script | Purpose | Quality | Speed |
-|--------|---------|---------|-------|
-| `script.js` | Standard Google Doc converter | ⭐⭐⭐ Good | 🚀 Fast |
-| `high_res_script.js` | High-quality Doc converter | ⭐⭐⭐⭐⭐ Excellent | 🐌 Slow |
-| `bookmarklet.js` | One-click bookmark | ⭐⭐⭐ Good | 🚀 Fast |
-| `image_extractor.js` | Extract pages as PNG | ⭐⭐⭐⭐⭐ Best | 🏃 Medium |
+### 📦 Chrome Extension (Recommended)
 
----
+```bash
+1. 📥 Download/Clone this repo
+2. 🌐 Open chrome://extensions/
+3. 🔧 Enable "Developer mode" (top right)
+4. 📂 Click "Load unpacked"
+5. 📁 Select the extension/ folder
+6. ✅ Done! Click extension icon on any Google Drive file
+```
 
-## 🛠️ How It Works
+### 📜 Console Scripts (Quick Use)
 
-These scripts work by:
-1. **Accessing already-loaded content** in your browser
-2. **Capturing page images** rendered by Google
-3. **Creating a PDF** or saving images
-4. **Downloading** to your computer
-
-> **Important:** These methods only work on documents you can already view. They do NOT bypass any security or access controls.
+For one-time use without installing, see [Quick Scripts](#-quick-scripts) below.
 
 ---
 
-## ⚖️ Legal & Ethical Use
+## 📖 Usage
+
+| Step | Action |
+|------|--------|
+| 1️⃣ | Open any view-only Google Drive file |
+| 2️⃣ | Click the extension icon in toolbar |
+| 3️⃣ | Choose your download option |
+| 4️⃣ | Wait for processing... Done! 🎉 |
+
+### ⚙️ Options
+
+| Option | Description |
+|--------|-------------|
+| 🔍 **High Resolution** | Creates higher quality PDFs (slower) |
+| 📜 **Auto-scroll** | Automatically scrolls through all pages |
+
+---
+
+## 📝 Quick Scripts
+
+### 📄 Google Docs/Slides → PDF
+
+```javascript
+// 1. 🌐 Open view-only Doc/Slide
+// 2. 🔧 Press F12 → Console tab
+// 3. 📋 Paste and run:
+
+let jspdf = document.createElement("script");
+jspdf.onload = function () {
+  let pdf = new jsPDF();
+  let elements = document.getElementsByTagName("img");
+  for (let i in elements) {
+    let img = elements[i];
+    if (!/^blob:/.test(img.src)) continue;
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext("2d");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    let imgData = canvas.toDataURL("image/jpeg", 1.0);
+    pdf.addImage(imgData, 'JPEG', 0, 0);
+    pdf.addPage();
+  }
+  pdf.save("download.pdf");
+};
+jspdf.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js';
+document.body.appendChild(jspdf);
+```
+
+### 📊 Google Sheets
+
+```javascript
+// 🔗 Method 1: Change URL
+// Replace /edit with /htmlview
+// Then: Select All → Copy → Paste to Excel
+
+// 🖨️ Method 2: Print to PDF
+// Press Ctrl+P → Save as PDF
+```
+
+### 🎬 Videos
+
+```bash
+1. 🎥 Open video in Google Drive
+2. 🔧 Press F12 → Network tab
+3. ▶️ Play the video
+4. 🔍 Filter by "mime=video"
+5. 📋 Copy URL of largest file
+6. ✂️ Remove "&range=..." from URL
+7. 🌐 Open in new tab → Download!
+```
+
+---
+
+## 📁 Project Structure
+
+```
+📦 gdrive-downloader/
+├── 📂 extension/           # 🔌 Chrome Extension
+│   ├── 📄 manifest.json    # ⚙️ Extension config
+│   ├── 📂 popup/           # 🎨 UI files
+│   ├── 📂 content/         # 📜 Page scripts
+│   ├── 📂 background/      # 🔧 Service worker
+│   └── 📂 lib/             # 📚 Libraries
+├── 📜 script.js            # 🔨 Console script
+├── 📜 bookmarklet.js       # 🔖 Bookmarklet
+└── 📜 high_res_script.js   # 🔍 High quality version
+```
+
+---
+
+## ⚠️ Legal Notice
+
+> **🔒 Important:** These tools are for legitimate personal use only!
 
 ### ✅ Appropriate Uses:
-- Creating personal backups of documents you have access to
-- Offline access to educational materials
-- Archiving your own shared documents
-- Personal reference and study
+- 💾 Personal backups of your documents
+- 📚 Offline access to educational materials
+- 📁 Archiving your own shared files
 
-### ❌ Inappropriate Uses:
-- Bypassing intended access restrictions
-- Downloading copyrighted content without permission
-- Unauthorized redistribution of others' work
-- Commercial use without proper licensing
-
-> **Always respect copyright and intellectual property rights.**
+### ❌ Not Appropriate:
+- 🚫 Bypassing intended restrictions
+- 🚫 Downloading copyrighted content
+- 🚫 Unauthorized redistribution
 
 ---
 
-## 🌟 Browser Compatibility
+## 💖 Support the Project
 
-| Browser | Console Scripts | Bookmarklet | Print to PDF |
-|---------|----------------|-------------|--------------|
-| Chrome | ✅ Excellent | ✅ Excellent | ✅ Excellent |
-| Firefox | ✅ Excellent | ✅ Excellent | ✅ Excellent |
-| Edge | ✅ Good | ✅ Excellent | ✅ Excellent |
-| Safari | ⚠️ Limited | ✅ Good | ✅ Excellent |
+If you find this useful, consider supporting:
 
----
-
-## 🤝 Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
-- Reporting bugs
-- Suggesting features
-- Submitting pull requests
-- Improving documentation
-- Adding translations
+<p align="center">
+  <a href="https://github.com/ThanhNguyxn/How-to-download-restricted-file-in-google">⭐ Star this repo</a> •
+  <a href="https://buymeacoffee.com/thanhnguyxn">☕ Buy me a coffee</a> •
+  <a href="https://github.com/sponsors/ThanhNguyxn">💖 GitHub Sponsors</a>
+</p>
 
 ---
 
 ## 📜 License
 
-This project is licensed under the **MIT License** - see [LICENSE](LICENSE) for details.
+MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
-## 👤 Author
-
-Created with ❤️ by **[Thành Nguyễn](https://github.com/ThanhNguyxn)**
-
----
-
-## ⭐ Show Your Support
-
-If you find this project helpful:
-- ⭐ **Star this repository**
-- 🐛 **Report issues** you encounter
-- 🔀 **Submit pull requests** with improvements
-- 📢 **Share with others** who might benefit
-- ☕ **[Buy me a coffee](https://buymeacoffee.com/thanhnguyxn)** (optional)
-
----
-
-## 📞 Get Help
-
-- 📖 **[Read the docs](docs/)** - Comprehensive guides
-- 🐛 **[Report an issue](https://github.com/ThanhNguyxn/google-drive-view-only-tools/issues)** - Bug reports
-- 💬 **[Discussions](https://github.com/ThanhNguyxn/google-drive-view-only-tools/discussions)** - Ask questions
+<p align="center">
+  Made with ❤️ by <a href="https://github.com/ThanhNguyxn"><b>Thành Nguyễn</b></a>
+</p>

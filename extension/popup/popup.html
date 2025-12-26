@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDrive Downloader</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">📥</span>
+                <h1>GDrive Downloader</h1>
+            </div>
+            <span class="version">v1.0</span>
+        </header>
+
+        <!-- Status Section -->
+        <section class="status-section">
+            <div class="status-indicator" id="statusIndicator">
+                <span class="status-dot"></span>
+                <span class="status-text" id="statusText">Detecting page type...</span>
+            </div>
+            <div class="page-type" id="pageType">
+                <span class="type-badge" id="typeBadge">Unknown</span>
+            </div>
+        </section>
+
+        <!-- Actions Section -->
+        <section class="actions-section" id="actionsSection">
+            <!-- Actions will be populated by JavaScript based on page type -->
+            <div class="loading-placeholder">
+                <div class="spinner"></div>
+                <p>Analyzing page...</p>
+            </div>
+        </section>
+
+        <!-- Options Section -->
+        <section class="options-section" id="optionsSection" style="display: none;">
+            <div class="option-group">
+                <label class="option-label">
+                    <input type="checkbox" id="highResOption">
+                    <span class="checkmark"></span>
+                    <span>High Resolution (slower)</span>
+                </label>
+            </div>
+            <div class="option-group">
+                <label class="option-label">
+                    <input type="checkbox" id="autoScrollOption" checked>
+                    <span class="checkmark"></span>
+                    <span>Auto-scroll to load all pages</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section class="progress-section" id="progressSection" style="display: none;">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-text" id="progressText">Processing...</p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="https://github.com/ThanhNguyxn/gdrive-downloader" target="_blank" class="footer-link">
+                    ⭐ GitHub
+                </a>
+                <span class="divider">•</span>
+                <a href="https://buymeacoffee.com/thanhnguyxn" target="_blank" class="footer-link donate">
+                    ☕ Donate
+                </a>
+                <span class="divider">•</span>
+                <a href="https://github.com/sponsors/ThanhNguyxn" target="_blank" class="footer-link sponsor">
+                    💖 Sponsor
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
