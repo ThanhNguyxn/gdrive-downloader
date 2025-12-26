@@ -2,18 +2,17 @@
   <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Chrome.svg" width="80" alt="Chrome"/>
 </p>
 
-<h1 align="center">GDrive Downloader</h1>
+<h1 align="center">🚀 GDrive Downloader</h1>
 
 <p align="center">
   <b>Download view-only files from Google Drive</b><br>
-  <i>Docs, Sheets, Slides, PDFs, and Videos</i>
+  <i>📄 Docs | 📊 Sheets | 🎨 Slides | 📑 PDFs | 🎬 Videos</i>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-1.0.0-blue?style=flat-square" alt="Version"/>
   <img src="https://img.shields.io/badge/chrome-extension-4285F4?style=flat-square&logo=googlechrome&logoColor=white" alt="Chrome"/>
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License"/>
-  <img src="https://img.shields.io/github/stars/ThanhNguyxn/gdrive-downloader?style=flat-square" alt="Stars"/>
 </p>
 
 <p align="center">
@@ -24,42 +23,42 @@
 
 ---
 
-## :sparkles: Features
+## ✨ Features
 
 <table>
 <tr>
 <td width="50%">
 
-### :page_facing_up: Google Docs
-- :arrow_down: Download as PDF
-- :framed_picture: Extract as Images
-- :iphone: Open Mobile View
+### 📄 Google Docs
+- ⬇️ Download as PDF
+- 🖼️ Extract as Images
+- 📱 Open Mobile View
 
 </td>
 <td width="50%">
 
-### :bar_chart: Google Sheets
-- :globe_with_meridians: Open HTML View
-- :inbox_tray: Try Export CSV
-- :printer: Print to PDF
+### 📊 Google Sheets
+- 🌐 Open HTML View
+- 📥 Try Export CSV
+- 🖨️ Print to PDF
 
 </td>
 </tr>
 <tr>
 <td width="50%">
 
-### :art: Google Slides
-- :arrow_down: Download as PDF
-- :framed_picture: Extract as Images
-- :performing_arts: Open HTML Present
+### 🎨 Google Slides
+- ⬇️ Download as PDF
+- 🖼️ Extract as Images
+- 🎭 Open HTML Present
 
 </td>
 <td width="50%">
 
-### :clapper: Protected Videos
-- :movie_camera: Auto-detect Video URL
-- :loud_sound: Auto-detect Audio URL
-- :link: Direct download links
+### 🎬 Protected Videos
+- 📹 Auto-detect Video URL
+- 🔊 Auto-detect Audio URL
+- 🔗 Direct download links
 
 </td>
 </tr>
@@ -67,10 +66,10 @@
 
 ---
 
-## :inbox_tray: Installation
+## 📥 Installation
 
 <details>
-<summary><b>:one: Download the Extension</b></summary>
+<summary><b>1️⃣ Download the Extension</b></summary>
 
 ```bash
 git clone https://github.com/ThanhNguyxn/gdrive-downloader.git
@@ -81,7 +80,7 @@ Or download ZIP from [Releases](https://github.com/ThanhNguyxn/gdrive-downloader
 </details>
 
 <details>
-<summary><b>:two: Load in Chrome</b></summary>
+<summary><b>2️⃣ Load in Chrome</b></summary>
 
 1. Open `chrome://extensions/`
 2. Enable **Developer mode** (top right)
@@ -91,99 +90,99 @@ Or download ZIP from [Releases](https://github.com/ThanhNguyxn/gdrive-downloader
 </details>
 
 <details>
-<summary><b>:three: Start Using</b></summary>
+<summary><b>3️⃣ Start Using</b></summary>
 
-Click the extension icon on any Google Drive file!
+Click the extension icon on any Google Drive file! 🎉
 
 </details>
 
 ---
 
-## :book: Usage Guide
+## 📖 Usage Guide
 
-### :page_facing_up: For Google Docs
-
-| Step | Action |
-|:----:|--------|
-| 1 | Open any view-only Google Doc |
-| 2 | Click the extension icon |
-| 3 | Choose **Download as PDF** or other options |
-| 4 | Wait for processing... Done! :tada: |
-
-### :bar_chart: For Google Sheets
+### 📄 For Google Docs
 
 | Step | Action |
 |:----:|--------|
-| 1 | Open view-only Google Sheet |
-| 2 | Click **Open HTML View** |
-| 3 | Select All (`Ctrl+A`) and Copy (`Ctrl+C`) |
-| 4 | Paste into Excel :tada: |
+| 1️⃣ | Open any view-only Google Doc |
+| 2️⃣ | Click the extension icon |
+| 3️⃣ | Choose **Download as PDF** or other options |
+| 4️⃣ | Wait for processing... Done! 🎉 |
 
-### :clapper: For Videos
+### 📊 For Google Sheets
 
 | Step | Action |
 |:----:|--------|
-| 1 | Open video on Google Drive |
-| 2 | **Play the video first!** :warning: |
-| 3 | Click extension icon |
-| 4 | Video and Audio URLs appear automatically |
-| 5 | Click to download, merge with FFmpeg if needed |
+| 1️⃣ | Open view-only Google Sheet |
+| 2️⃣ | Click **Open HTML View** |
+| 3️⃣ | Select All (`Ctrl+A`) and Copy (`Ctrl+C`) |
+| 4️⃣ | Paste into Excel 🎉 |
+
+### 🎬 For Videos
+
+| Step | Action |
+|:----:|--------|
+| 1️⃣ | Open video on Google Drive |
+| 2️⃣ | **Play the video first!** ⚠️ |
+| 3️⃣ | Click extension icon |
+| 4️⃣ | Video and Audio URLs appear automatically |
+| 5️⃣ | Click to download, merge with FFmpeg if needed |
 
 ---
 
-## :gear: Options
+## ⚙️ Options
 
 | Option | Description |
 |--------|-------------|
-| :mag: **High Resolution** | Creates higher quality PDFs |
-| :scroll: **Auto-scroll** | Automatically loads all pages |
+| 🔍 **High Resolution** | Creates higher quality PDFs |
+| 📜 **Auto-scroll** | Automatically loads all pages |
 
 ---
 
-## :file_folder: Project Structure
+## 📁 Project Structure
 
 ```
-extension/
-├── manifest.json    # Extension config
-├── popup/           # UI components
-├── content/         # Page scripts
-├── background/      # Service worker
-├── lib/             # jsPDF library
-└── icons/           # Extension icons
+📦 extension/
+├── 📄 manifest.json    # Extension config
+├── 📂 popup/           # UI components
+├── 📂 content/         # Page scripts
+├── 📂 background/      # Service worker
+├── 📂 lib/             # jsPDF library
+└── 📂 icons/           # Extension icons
 ```
 
 ---
 
-## :warning: Disclaimer
+## ⚠️ Disclaimer
 
-> :lock: These tools are for **legitimate personal use only**!
+> 🔒 These tools are for **legitimate personal use only**!
 
-| :white_check_mark: Allowed | :x: Not Allowed |
-|----------------------------|-----------------|
+| ✅ Allowed | ❌ Not Allowed |
+|------------|----------------|
 | Personal backups | Copyrighted content |
 | Offline access | Unauthorized sharing |
 | Educational materials | Commercial use |
 
 ---
 
-## :heart: Support
+## 💖 Support
 
 If you find this useful, please consider:
 
 <p align="center">
-  <a href="https://github.com/ThanhNguyxn/gdrive-downloader">:star: Star this repo</a>
+  <a href="https://github.com/ThanhNguyxn/gdrive-downloader">⭐ Star this repo</a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="https://buymeacoffee.com/thanhnguyxn">:coffee: Buy me a coffee</a>
+  <a href="https://buymeacoffee.com/thanhnguyxn">☕ Buy me a coffee</a>
 </p>
 
 ---
 
-## :scroll: License
+## 📜 License
 
 MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
 <p align="center">
-  Made with :heart: by <a href="https://github.com/ThanhNguyxn"><b>Thanh Nguyen</b></a>
+  Made with ❤️ by <a href="https://github.com/ThanhNguyxn"><b>Thanh Nguyen</b></a>
 </p>
