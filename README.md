@@ -1,101 +1,151 @@
-# GDrive Downloader
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Chrome.svg" width="80" alt="Chrome"/>
+</p>
 
-> Download view-only files from Google Drive - Docs, Sheets, Slides, PDFs, and Videos
+<h1 align="center">GDrive Downloader</h1>
 
-![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Made with Love](https://img.shields.io/badge/Made%20with-Love-red?style=for-the-badge)
+<p align="center">
+  <b>Download view-only files from Google Drive</b><br>
+  <i>Docs, Sheets, Slides, PDFs, and Videos</i>
+</p>
 
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/thanhnguyxn)
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.0.0-blue?style=flat-square" alt="Version"/>
+  <img src="https://img.shields.io/badge/chrome-extension-4285F4?style=flat-square&logo=googlechrome&logoColor=white" alt="Chrome"/>
+  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License"/>
+  <img src="https://img.shields.io/github/stars/ThanhNguyxn/gdrive-downloader?style=flat-square" alt="Stars"/>
+</p>
 
----
-
-## Features
-
-| File Type | Features |
-|-----------|----------|
-| **Google Docs** | Download PDF, Extract Images, Mobile View |
-| **Google Sheets** | HTML View, CSV Export, Print to PDF |
-| **Google Slides** | Download PDF, Extract Images, HTML Present |
-| **Protected PDFs** | Canvas + Blob capture, High-res mode |
-| **Protected Videos** | Auto-detect Video and Audio URLs |
-
----
-
-## Installation
-
-1. Download or Clone this repository
-2. Open `chrome://extensions/`
-3. Enable **Developer mode** (top right corner)
-4. Click **Load unpacked**
-5. Select the `extension/` folder
-6. Done! Extension icon will appear in your toolbar
+<p align="center">
+  <a href="https://buymeacoffee.com/thanhnguyxn">
+    <img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"/>
+  </a>
+</p>
 
 ---
 
-## Usage
+## :sparkles: Features
 
-### Google Docs
+<table>
+<tr>
+<td width="50%">
 
-1. Open a view-only Google Doc
-2. Click the extension icon
-3. Choose:
-   - **Download as PDF** - Save as PDF file
-   - **Extract as Images** - Download each page as PNG
-   - **Open Mobile View** - Simple view for copying text
+### :page_facing_up: Google Docs
+- :arrow_down: Download as PDF
+- :framed_picture: Extract as Images
+- :iphone: Open Mobile View
 
-### Google Sheets
+</td>
+<td width="50%">
 
-1. Open a view-only Google Sheet
-2. Click the extension icon
-3. Choose:
-   - **Open HTML View** - Select All, Copy, Paste to Excel
-   - **Try Export CSV** - Attempt to download CSV (may be blocked)
-   - **Print to PDF** - Press Ctrl+P, Save as PDF
+### :bar_chart: Google Sheets
+- :globe_with_meridians: Open HTML View
+- :inbox_tray: Try Export CSV
+- :printer: Print to PDF
 
-### Google Slides
+</td>
+</tr>
+<tr>
+<td width="50%">
 
-1. Open a view-only Google Slides
-2. Click the extension icon
-3. Choose:
-   - **Download as PDF** - Save as PDF file
-   - **Extract as Images** - Download each slide as image
-   - **Open HTML Present** - Open HTML, Ctrl+P, Save as PDF
+### :art: Google Slides
+- :arrow_down: Download as PDF
+- :framed_picture: Extract as Images
+- :performing_arts: Open HTML Present
 
-### Protected PDF
+</td>
+<td width="50%">
 
-1. Open a PDF on Google Drive (view-only)
-2. Click the extension icon
-3. Choose:
-   - **Download PDF** - Capture and download PDF
-   - **Extract as Images** - Download each page as image
+### :clapper: Protected Videos
+- :movie_camera: Auto-detect Video URL
+- :loud_sound: Auto-detect Audio URL
+- :link: Direct download links
 
-### Protected Video
-
-1. Open a video on Google Drive (view-only)
-2. **Play the video first** (important!)
-3. Click the extension icon
-4. Video URL and Audio URL will appear automatically
-5. Click **Open Video** or **Open Audio** to download
-6. Use FFmpeg to merge video + audio if needed
+</td>
+</tr>
+</table>
 
 ---
 
-## Options
+## :inbox_tray: Installation
+
+<details>
+<summary><b>:one: Download the Extension</b></summary>
+
+```bash
+git clone https://github.com/ThanhNguyxn/gdrive-downloader.git
+```
+
+Or download ZIP from [Releases](https://github.com/ThanhNguyxn/gdrive-downloader/releases)
+
+</details>
+
+<details>
+<summary><b>:two: Load in Chrome</b></summary>
+
+1. Open `chrome://extensions/`
+2. Enable **Developer mode** (top right)
+3. Click **Load unpacked**
+4. Select the `extension/` folder
+
+</details>
+
+<details>
+<summary><b>:three: Start Using</b></summary>
+
+Click the extension icon on any Google Drive file!
+
+</details>
+
+---
+
+## :book: Usage Guide
+
+### :page_facing_up: For Google Docs
+
+| Step | Action |
+|:----:|--------|
+| 1 | Open any view-only Google Doc |
+| 2 | Click the extension icon |
+| 3 | Choose **Download as PDF** or other options |
+| 4 | Wait for processing... Done! :tada: |
+
+### :bar_chart: For Google Sheets
+
+| Step | Action |
+|:----:|--------|
+| 1 | Open view-only Google Sheet |
+| 2 | Click **Open HTML View** |
+| 3 | Select All (`Ctrl+A`) and Copy (`Ctrl+C`) |
+| 4 | Paste into Excel :tada: |
+
+### :clapper: For Videos
+
+| Step | Action |
+|:----:|--------|
+| 1 | Open video on Google Drive |
+| 2 | **Play the video first!** :warning: |
+| 3 | Click extension icon |
+| 4 | Video and Audio URLs appear automatically |
+| 5 | Click to download, merge with FFmpeg if needed |
+
+---
+
+## :gear: Options
 
 | Option | Description |
 |--------|-------------|
-| **High Resolution** | Creates higher quality PDFs (slower) |
-| **Auto-scroll** | Automatically scrolls to load all pages |
+| :mag: **High Resolution** | Creates higher quality PDFs |
+| :scroll: **Auto-scroll** | Automatically loads all pages |
 
 ---
 
-## Project Structure
+## :file_folder: Project Structure
 
 ```
 extension/
 ├── manifest.json    # Extension config
-├── popup/           # UI files
+├── popup/           # UI components
 ├── content/         # Page scripts
 ├── background/      # Service worker
 ├── lib/             # jsPDF library
@@ -104,47 +154,36 @@ extension/
 
 ---
 
-## Legal Notice
+## :warning: Disclaimer
 
-> These tools are for legitimate personal use only!
+> :lock: These tools are for **legitimate personal use only**!
 
-**Allowed:**
-- Personal backups of documents you have access to
-- Offline access to educational materials
-
-**Not Allowed:**
-- Downloading copyrighted content without permission
-- Unauthorized redistribution
+| :white_check_mark: Allowed | :x: Not Allowed |
+|----------------------------|-----------------|
+| Personal backups | Copyrighted content |
+| Offline access | Unauthorized sharing |
+| Educational materials | Commercial use |
 
 ---
 
-## Support
+## :heart: Support
 
-If you find this useful, please support:
+If you find this useful, please consider:
 
-- [Star this repo](https://github.com/ThanhNguyxn/gdrive-downloader)
-- [Buy me a coffee](https://buymeacoffee.com/thanhnguyxn)
-
----
-
-## Suggested Repository Name
-
-**`gdrive-downloader`** or **`google-drive-downloader`**
-
-## Suggested Topics/Tags
-
-```
-google-drive, chrome-extension, pdf-downloader, google-docs, 
-google-sheets, google-slides, view-only, download-protected,
-javascript, jspdf
-```
+<p align="center">
+  <a href="https://github.com/ThanhNguyxn/gdrive-downloader">:star: Star this repo</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="https://buymeacoffee.com/thanhnguyxn">:coffee: Buy me a coffee</a>
+</p>
 
 ---
 
-## License
+## :scroll: License
 
-MIT License
+MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
-Made with love by [Thanh Nguyen](https://github.com/ThanhNguyxn)
+<p align="center">
+  Made with :heart: by <a href="https://github.com/ThanhNguyxn"><b>Thanh Nguyen</b></a>
+</p>
