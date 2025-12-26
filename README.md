@@ -11,6 +11,12 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/ThanhNguyxn/gdrive-downloader/raw/main/release/gdrive-downloader-v2.0.1.zip">
+    <img src="https://img.shields.io/badge/⬇️_Download_v2.0.1-Click_Here-blue?style=for-the-badge&logo=google-drive&logoColor=white" alt="Download"/>
+  </a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Chrome-4285F4?style=flat-square&logo=googlechrome&logoColor=white" alt="Chrome"/>
   <img src="https://img.shields.io/badge/Edge-0078D7?style=flat-square&logo=microsoftedge&logoColor=white" alt="Edge"/>
   <img src="https://img.shields.io/badge/Brave-FB542B?style=flat-square&logo=brave&logoColor=white" alt="Brave"/>

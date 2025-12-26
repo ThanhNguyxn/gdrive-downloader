@@ -10,6 +10,8 @@
 
 This major release transforms the extension into a comprehensive tool for all Google Drive file types, featuring a completely redesigned "Premium" UI and advanced extraction capabilities.
 
+# GDrive Downloader v1.0.0 - "Beta" Release
+
 ## 🚀 New Features
 
 ### 🎨 Premium UI Overhaul
