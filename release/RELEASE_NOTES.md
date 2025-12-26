@@ -1,3 +1,11 @@
+# GDrive Downloader v2.0.1 - "Premium & Power" Release
+
+## 🛠️ v2.0.1 Hotfix
+- Fixed CSS compatibility warning (`background-clip`).
+- Minor performance improvements.
+
+---
+
 # GDrive Downloader v2.0.0 - "Premium & Power" Release
 
 This major release transforms the extension into a comprehensive tool for all Google Drive file types, featuring a completely redesigned "Premium" UI and advanced extraction capabilities.
