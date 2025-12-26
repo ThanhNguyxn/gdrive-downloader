@@ -1,0 +1,14 @@
+{
+  "name": "gdrive-downloader",
+  "version": "2.0.1",
+  "description": "Download view-only files from Google Drive - Docs, Sheets, Slides, PDFs, and Videos",
+  "scripts": {
+    "set-version": "node scripts/set-version.js"
+  },
+  "author": "ThanhNguyxn",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ThanhNguyxn/gdrive-downloader.git"
+  }
+}
