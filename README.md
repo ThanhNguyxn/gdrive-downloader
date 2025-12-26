@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ThanhNguyxn/gdrive-downloader/raw/main/release/gdrive-downloader-v2.0.1.zip">
+  <a href="https://github.com/ThanhNguyxn/How-to-download-restricted-file-in-google/raw/main/release/gdrive-downloader-v2.0.1.zip">
     <img src="https://img.shields.io/badge/⬇️_Download_v2.0.1-Click_Here-blue?style=for-the-badge&logo=google-drive&logoColor=white" alt="Download"/>
   </a>
 </p>
@@ -230,7 +230,7 @@ gdrive-downloader/
 If you find this useful, please consider:
 
 <p align="center">
-  <a href="https://github.com/ThanhNguyxn/gdrive-downloader">⭐ Star this repo</a>
+  <a href="https://github.com/ThanhNguyxn/How-to-download-restricted-file-in-google">⭐ Star this repo</a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="https://buymeacoffee.com/thanhnguyxn">☕ Buy me a coffee</a>
 </p>

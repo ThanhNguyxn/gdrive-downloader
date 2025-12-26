@@ -15,7 +15,7 @@ chrome.runtime.onInstalled.addListener((details) => {
 
         // Open welcome page or show notification
         chrome.tabs.create({
-            url: 'https://github.com/ThanhNguyxn/google-drive-view-only-tools'
+            url: 'https://github.com/ThanhNguyxn/gdrive-downloader'
         });
     } else if (details.reason === 'update') {
         console.log('GDrive Downloader updated to version', chrome.runtime.getManifest().version);
