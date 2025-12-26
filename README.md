@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/AlfredoRamos/simple-dark-icons/master/icons/web-browser.svg" width="80" alt="Browser"/>
-</p>
-
 <h1 align="center">🚀 GDrive Downloader</h1>
 
 <p align="center">
