@@ -1,3 +1,12 @@
+# GDrive Downloader v2.0.2 - "Automation & Fixes" Release
+
+## 🛠️ v2.0.2 Changelog
+- **Repository Sync:** Fixed broken links in README and synced project metadata.
+- **Automation:** Added `npm run set-version` script to automatically synchronize version numbers across all files.
+- **Maintenance:** General cleanup and stability improvements.
+
+---
+
 # GDrive Downloader v2.0.1 - "Premium & Power" Release
 
 ## 🛠️ v2.0.1 Hotfix
