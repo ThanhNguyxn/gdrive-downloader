@@ -1,137 +1,150 @@
-# 🚀 GDrive Downloader
+# GDrive Downloader
 
-> ⬇️ **Chrome Extension để download view-only files từ Google Drive**
+> Download view-only files from Google Drive - Docs, Sheets, Slides, PDFs, and Videos
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Chrome Extension"/>
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License"/>
-</p>
+![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Made with Love](https://img.shields.io/badge/Made%20with-Love-red?style=for-the-badge)
 
-<p align="center">
-  <a href="https://buymeacoffee.com/thanhnguyxn">
-    <img src="https://img.shields.io/badge/☕_Buy_Me_a_Coffee-FFDD00?style=for-the-badge" alt="Buy Me a Coffee"/>
-  </a>
-  <a href="https://github.com/sponsors/ThanhNguyxn">
-    <img src="https://img.shields.io/badge/💖_Sponsor-EA4AAA?style=for-the-badge" alt="GitHub Sponsors"/>
-  </a>
-</p>
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/thanhnguyxn)
 
 ---
 
-## � Cài Đặt
+## Features
+
+| File Type | Features |
+|-----------|----------|
+| **Google Docs** | Download PDF, Extract Images, Mobile View |
+| **Google Sheets** | HTML View, CSV Export, Print to PDF |
+| **Google Slides** | Download PDF, Extract Images, HTML Present |
+| **Protected PDFs** | Canvas + Blob capture, High-res mode |
+| **Protected Videos** | Auto-detect Video and Audio URLs |
+
+---
+
+## Installation
+
+1. Download or Clone this repository
+2. Open `chrome://extensions/`
+3. Enable **Developer mode** (top right corner)
+4. Click **Load unpacked**
+5. Select the `extension/` folder
+6. Done! Extension icon will appear in your toolbar
+
+---
+
+## Usage
+
+### Google Docs
+
+1. Open a view-only Google Doc
+2. Click the extension icon
+3. Choose:
+   - **Download as PDF** - Save as PDF file
+   - **Extract as Images** - Download each page as PNG
+   - **Open Mobile View** - Simple view for copying text
+
+### Google Sheets
+
+1. Open a view-only Google Sheet
+2. Click the extension icon
+3. Choose:
+   - **Open HTML View** - Select All, Copy, Paste to Excel
+   - **Try Export CSV** - Attempt to download CSV (may be blocked)
+   - **Print to PDF** - Press Ctrl+P, Save as PDF
+
+### Google Slides
+
+1. Open a view-only Google Slides
+2. Click the extension icon
+3. Choose:
+   - **Download as PDF** - Save as PDF file
+   - **Extract as Images** - Download each slide as image
+   - **Open HTML Present** - Open HTML, Ctrl+P, Save as PDF
+
+### Protected PDF
+
+1. Open a PDF on Google Drive (view-only)
+2. Click the extension icon
+3. Choose:
+   - **Download PDF** - Capture and download PDF
+   - **Extract as Images** - Download each page as image
+
+### Protected Video
+
+1. Open a video on Google Drive (view-only)
+2. **Play the video first** (important!)
+3. Click the extension icon
+4. Video URL and Audio URL will appear automatically
+5. Click **Open Video** or **Open Audio** to download
+6. Use FFmpeg to merge video + audio if needed
+
+---
+
+## Options
+
+| Option | Description |
+|--------|-------------|
+| **High Resolution** | Creates higher quality PDFs (slower) |
+| **Auto-scroll** | Automatically scrolls to load all pages |
+
+---
+
+## Project Structure
 
 ```
-1. 📥 Download hoặc Clone repo này
-2. 🌐 Mở chrome://extensions/
-3. 🔧 Bật "Developer mode" (góc phải trên)
-4. 📂 Click "Load unpacked"
-5. 📁 Chọn thư mục extension/
-6. ✅ Xong! Extension icon sẽ xuất hiện trên toolbar
+extension/
+├── manifest.json    # Extension config
+├── popup/           # UI files
+├── content/         # Page scripts
+├── background/      # Service worker
+├── lib/             # jsPDF library
+└── icons/           # Extension icons
 ```
 
 ---
 
-## � Hướng Dẫn Sử Dụng
+## Legal Notice
 
-### � Google Docs
+> These tools are for legitimate personal use only!
 
-1. Mở file Google Docs (view-only)
-2. Click icon extension trên toolbar
-3. Chọn:
-   - **📄 Download as PDF** - Tải xuống dạng PDF
-   - **🖼️ Extract as Images** - Tải từng trang dạng ảnh PNG
-   - **📱 Open Mobile View** - Mở view đơn giản, copy text được
+**Allowed:**
+- Personal backups of documents you have access to
+- Offline access to educational materials
 
-### � Google Sheets
-
-1. Mở file Google Sheets (view-only)
-2. Click icon extension
-3. Chọn:
-   - **📊 Open HTML View** - Mở view HTML → Select All → Copy → Paste vào Excel
-   - **📥 Try Export CSV** - Thử tải CSV (có thể bị chặn)
-   - **📄 Print to PDF** - Nhấn Ctrl+P → Save as PDF
-
-### 🎨 Google Slides
-
-1. Mở file Google Slides (view-only)
-2. Click icon extension
-3. Chọn:
-   - **📄 Download as PDF** - Tải xuống dạng PDF
-   - **🖼️ Extract as Images** - Tải từng slide dạng ảnh
-   - **🎨 Open HTML Present** - Mở HTML → Ctrl+P → Save as PDF
-
-### 📑 Protected PDF
-
-1. Mở PDF trên Google Drive (view-only)
-2. Click icon extension
-3. Chọn:
-   - **📄 Download PDF** - Capture và tải PDF
-   - **�️ Extract as Images** - Tải từng trang dạng ảnh
-
-### 🎬 Protected Video
-
-1. Mở video trên Google Drive (view-only)
-2. **▶️ Play video trước** (quan trọng!)
-3. Click icon extension
-4. Video URL và Audio URL sẽ tự động hiện
-5. Click **🎬 Open Video** hoặc **🔊 Open Audio** để tải
-6. Dùng FFmpeg merge video + audio nếu cần
+**Not Allowed:**
+- Downloading copyrighted content without permission
+- Unauthorized redistribution
 
 ---
 
-## ⚙️ Tùy Chọn
+## Support
 
-| Option | Mô tả |
-|--------|-------|
-| � **High Resolution** | Tạo PDF chất lượng cao hơn (chậm hơn) |
-| � **Auto-scroll** | Tự động scroll để load hết trang |
+If you find this useful, please support:
+
+- [Star this repo](https://github.com/ThanhNguyxn/gdrive-downloader)
+- [Buy me a coffee](https://buymeacoffee.com/thanhnguyxn)
 
 ---
 
-## � Cấu Trúc
+## Suggested Repository Name
+
+**`gdrive-downloader`** or **`google-drive-downloader`**
+
+## Suggested Topics/Tags
 
 ```
-📦 extension/
-├── 📄 manifest.json    # Config extension
-├── 📂 popup/           # UI
-├── 📂 content/         # Script xử lý trang
-├── 📂 background/      # Service worker
-├── 📂 lib/             # jsPDF library
-└── � icons/           # Icons
+google-drive, chrome-extension, pdf-downloader, google-docs, 
+google-sheets, google-slides, view-only, download-protected,
+javascript, jspdf
 ```
 
 ---
 
-## ⚠️ Lưu Ý
-
-> Công cụ này chỉ dành cho mục đích cá nhân hợp pháp!
-
-✅ **Được phép:**
-- Backup tài liệu cá nhân bạn có quyền truy cập
-- Truy cập offline tài liệu học tập
-
-❌ **Không được phép:**
-- Tải nội dung có bản quyền trái phép
-- Phân phối lại tài liệu không được phép
-
----
-
-## 💖 Ủng Hộ
-
-Nếu thấy hữu ích, hãy ủng hộ mình nhé!
-
-- ⭐ [Star repo này](https://github.com/ThanhNguyxn/How-to-download-restricted-file-in-google)
-- ☕ [Buy me a coffee](https://buymeacoffee.com/thanhnguyxn)
-- 💖 [GitHub Sponsors](https://github.com/sponsors/ThanhNguyxn)
-
----
-
-## 📜 License
+## License
 
 MIT License
 
 ---
 
-<p align="center">
-  Made with ❤️ by <a href="https://github.com/ThanhNguyxn"><b>Thành Nguyễn</b></a>
-</p>
+Made with love by [Thanh Nguyen](https://github.com/ThanhNguyxn)
