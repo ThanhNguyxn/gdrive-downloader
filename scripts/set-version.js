@@ -52,7 +52,12 @@ readme = readme.replace(
     `img.shields.io/badge/version-${newVersion}-blue`
 );
 
-// Update Download Link: gdrive-downloader-v2.0.1.zip
+// Update Download Link (Release Asset URL)
+// Matches: releases/download/v2.0.1/gdrive-downloader-v2.0.1.zip
+readme = readme.replace(
+    /releases\/download\/v[\d\.]+\//,
+    `releases/download/v${newVersion}/`
+);
 readme = readme.replace(
     /gdrive-downloader-v[\d\.]+\.zip/g,
     `gdrive-downloader-v${newVersion}.zip`
