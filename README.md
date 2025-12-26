@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Chrome.svg" width="80" alt="Chrome"/>
+  <img src="https://raw.githubusercontent.com/AlfredoRamos/simple-dark-icons/master/icons/web-browser.svg" width="80" alt="Browser"/>
 </p>
 
 <h1 align="center">🚀 GDrive Downloader</h1>
@@ -11,8 +11,15 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-1.0.0-blue?style=flat-square" alt="Version"/>
-  <img src="https://img.shields.io/badge/chrome-extension-4285F4?style=flat-square&logo=googlechrome&logoColor=white" alt="Chrome"/>
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License"/>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Chrome-4285F4?style=flat-square&logo=googlechrome&logoColor=white" alt="Chrome"/>
+  <img src="https://img.shields.io/badge/Edge-0078D7?style=flat-square&logo=microsoftedge&logoColor=white" alt="Edge"/>
+  <img src="https://img.shields.io/badge/Brave-FB542B?style=flat-square&logo=brave&logoColor=white" alt="Brave"/>
+  <img src="https://img.shields.io/badge/Opera-FF1B2D?style=flat-square&logo=opera&logoColor=white" alt="Opera"/>
+  <img src="https://img.shields.io/badge/Vivaldi-EF3939?style=flat-square&logo=vivaldi&logoColor=white" alt="Vivaldi"/>
 </p>
 
 <p align="center">
@@ -66,33 +73,42 @@
 
 ---
 
+## 🌐 Supported Browsers
+
+| Browser | Status | Installation |
+|---------|--------|--------------|
+| ![Chrome](https://img.shields.io/badge/-Chrome-4285F4?logo=googlechrome&logoColor=white) | ✅ Full Support | Developer Mode |
+| ![Edge](https://img.shields.io/badge/-Edge-0078D7?logo=microsoftedge&logoColor=white) | ✅ Full Support | Developer Mode |
+| ![Brave](https://img.shields.io/badge/-Brave-FB542B?logo=brave&logoColor=white) | ✅ Full Support | Developer Mode |
+| ![Opera](https://img.shields.io/badge/-Opera-FF1B2D?logo=opera&logoColor=white) | ✅ Full Support | Developer Mode |
+| ![Vivaldi](https://img.shields.io/badge/-Vivaldi-EF3939?logo=vivaldi&logoColor=white) | ✅ Full Support | Developer Mode |
+| ![Firefox](https://img.shields.io/badge/-Firefox-FF7139?logo=firefox&logoColor=white) | 🔄 Coming Soon | - |
+
+---
+
 ## 📥 Installation
 
 <details>
-<summary><b>1️⃣ Download the Extension</b></summary>
+<summary><b>🔵 Chrome / Edge / Brave / Opera / Vivaldi</b></summary>
 
-```bash
-git clone https://github.com/ThanhNguyxn/gdrive-downloader.git
-```
-
-Or download ZIP from [Releases](https://github.com/ThanhNguyxn/gdrive-downloader/releases)
-
-</details>
-
-<details>
-<summary><b>2️⃣ Load in Chrome</b></summary>
-
-1. Open `chrome://extensions/`
-2. Enable **Developer mode** (top right)
-3. Click **Load unpacked**
-4. Select the `extension/` folder
+1. Download or Clone this repository
+2. Open browser extensions page:
+   - **Chrome**: `chrome://extensions/`
+   - **Edge**: `edge://extensions/`
+   - **Brave**: `brave://extensions/`
+   - **Opera**: `opera://extensions/`
+   - **Vivaldi**: `vivaldi://extensions/`
+3. Enable **Developer mode**
+4. Click **Load unpacked**
+5. Select the `extension/` folder
+6. Done! 🎉
 
 </details>
 
 <details>
-<summary><b>3️⃣ Start Using</b></summary>
+<summary><b>🟠 Firefox (Coming Soon)</b></summary>
 
-Click the extension icon on any Google Drive file! 🎉
+Firefox support is in development. Stay tuned!
 
 </details>
 
@@ -143,7 +159,7 @@ Click the extension icon on any Google Drive file! 🎉
 
 ```
 📦 extension/
-├── 📄 manifest.json    # Extension config
+├── 📄 manifest.json    # Extension config (Manifest V3)
 ├── 📂 popup/           # UI components
 ├── 📂 content/         # Page scripts
 ├── 📂 background/      # Service worker
