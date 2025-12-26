@@ -166,16 +166,49 @@
 
 ---
 
-## 📁 Project Structure
+## 🏗️ Technical Architecture
 
-```
-📦 extension/
-├── 📄 manifest.json    # Extension config (v2.0)
-├── 📂 popup/           # Premium UI (Glassmorphism)
-├── 📂 content/         # Advanced Logic (Native Print, SVG, etc)
-├── 📂 background/      # Service worker
-├── 📂 lib/             # jsPDF, JSZip, FFmpeg
-└── 📂 icons/           # Extension icons
+This extension leverages advanced browser capabilities to bypass view-only restrictions legally and safely.
+
+### 🔧 Core Logic
+
+#### 1. PDF Generation (Canvas & Native)
+- **Standard Mode:** Iterates through the document's canvas elements, captures them as high-quality images, and compiles them into a PDF using `jsPDF`.
+- **Native Print Mode:** Injects specific CSS (`@media print`) to override Google's "display: none" on text layers, forcing the browser's native print dialog to recognize and render the selectable text.
+
+#### 2. Text & Data Extraction
+- **Docs/Slides:** Uses DOM traversal to locate specific container classes (e.g., `.kix-lineview-content` for Docs, `g text` for Slides) and extracts raw text content, bypassing the clipboard restrictions.
+- **Sheets:** Manipulates the spreadsheet URL to access the `/htmlview` endpoint, which renders a copy-paste friendly HTML version of the data.
+
+#### 3. Media Detection
+- **Video/Audio:** Uses `MutationObserver` to watch for media player initialization and intercepts network request patterns to identify the underlying `googlevideo.com` stream URLs for both video and audio tracks.
+
+#### 4. Vector Export (SVG)
+- **Slides:** Scrapes the SVG nodes directly from the Google Slides rendering layer (`.punch-viewer-content`) and serializes them into a standalone `.svg` file, preserving vector quality.
+
+---
+
+## 📂 Project Structure
+
+```bash
+gdrive-downloader/
+├── 📂 .github/             # GitHub templates & workflows
+├── 📂 extension/           # Source code
+│   ├── 📂 background/      # Service worker (Event handling)
+│   ├── 📂 content/         # Content scripts (Page manipulation)
+│   │   └── content.js      # Main logic (PDF, Text, Media extraction)
+│   ├── 📂 lib/             # Third-party libraries
+│   │   ├── jspdf.umd.min.js # PDF generation
+│   │   └── jszip.min.js     # ZIP creation
+│   ├── 📂 popup/           # Extension UI
+│   │   ├── popup.html      # Structure
+│   │   ├── popup.css       # Styling (Glassmorphism)
+│   │   └── popup.js        # UI Logic & Messaging
+│   └── manifest.json       # Extension Configuration (V3)
+├── 📂 release/             # Pre-built releases (.zip)
+├── .gitignore              # Git ignore rules
+├── LICENSE                 # MIT License
+└── README.md               # Documentation
 ```
 
 ---
