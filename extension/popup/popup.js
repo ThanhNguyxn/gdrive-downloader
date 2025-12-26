@@ -31,6 +31,9 @@ let pageType = null;
  */
 async function init() {
     try {
+        // Load settings
+        await loadSettings();
+
         // Get current tab
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
         currentTab = tab;
@@ -52,6 +55,40 @@ async function init() {
         updateStatus('error', 'Error detecting page');
         renderError(error.message);
     }
+}
+
+/**
+ * Load settings from storage
+ */
+async function loadSettings() {
+    try {
+        const result = await chrome.storage.local.get(['highRes', 'autoScroll']);
+
+        const highResOption = document.getElementById('highResOption');
+        const autoScrollOption = document.getElementById('autoScrollOption');
+
+        if (highResOption) {
+            highResOption.checked = result.highRes !== false; // Default true if undefined? No, default false usually. Let's say default false.
+            highResOption.addEventListener('change', saveSettings);
+        }
+
+        if (autoScrollOption) {
+            autoScrollOption.checked = result.autoScroll !== false; // Default true
+            autoScrollOption.addEventListener('change', saveSettings);
+        }
+    } catch (error) {
+        console.error('Error loading settings:', error);
+    }
+}
+
+/**
+ * Save settings to storage
+ */
+async function saveSettings() {
+    const highRes = document.getElementById('highResOption')?.checked;
+    const autoScroll = document.getElementById('autoScrollOption')?.checked;
+
+    await chrome.storage.local.set({ highRes, autoScroll });
 }
 
 /**
@@ -121,13 +158,27 @@ function renderActions(type) {
           <span class="icon">📄</span>
           Download as PDF
         </button>
+        <button class="action-btn secondary" id="downloadZipBtn">
+          <span class="icon">📦</span>
+          Download as ZIP
+        </button>
         <button class="action-btn secondary" id="extractImagesBtn">
           <span class="icon">🖼️</span>
           Extract as Images
         </button>
+        <div style="border-top: 1px solid var(--border-color); margin: 8px 0;"></div>
+        <div class="section-title">Advanced</div>
+        <button class="action-btn advanced" id="nativePrintBtn">
+          <span class="icon">🖨️</span>
+          Try Native Print (Selectable)
+        </button>
+        <button class="action-btn advanced" id="extractTextBtn">
+          <span class="icon">📝</span>
+          Extract Text Only
+        </button>
         <button class="action-btn secondary" id="openMobileBasicBtn">
           <span class="icon">📱</span>
-          Open Mobile View (Copy Text)
+          Open Mobile View
         </button>
       `;
             break;
@@ -138,9 +189,19 @@ function renderActions(type) {
           <span class="icon">📄</span>
           Download as PDF
         </button>
+        <button class="action-btn secondary" id="downloadZipBtn">
+          <span class="icon">📦</span>
+          Download as ZIP
+        </button>
         <button class="action-btn secondary" id="extractImagesBtn">
           <span class="icon">🖼️</span>
           Extract as Images
+        </button>
+        <div style="border-top: 1px solid var(--border-color); margin: 8px 0;"></div>
+        <div class="section-title">Advanced</div>
+        <button class="action-btn advanced" id="extractTextBtn">
+          <span class="icon">📝</span>
+          Extract Text Only
         </button>
         <button class="action-btn secondary" id="openHtmlPresentBtn">
           <span class="icon">🎨</span>
@@ -172,9 +233,19 @@ function renderActions(type) {
           <span class="icon">📄</span>
           Download PDF
         </button>
+        <button class="action-btn secondary" id="downloadZipBtn">
+          <span class="icon">📦</span>
+          Download as ZIP
+        </button>
         <button class="action-btn secondary" id="extractImagesBtn">
           <span class="icon">🖼️</span>
           Extract as Images
+        </button>
+        <div style="border-top: 1px solid var(--border-color); margin: 8px 0;"></div>
+        <div class="section-title">Advanced</div>
+        <button class="action-btn advanced" id="nativePrintBtn">
+          <span class="icon">🖨️</span>
+          Try Native Print (Selectable)
         </button>
       `;
             break;
@@ -208,8 +279,16 @@ function renderActions(type) {
           <span class="icon">🔊</span>
           Open Audio in New Tab
         </button>
+        <button class="action-btn secondary" id="downloadBothBtn" disabled>
+          <span class="icon">⬇️</span>
+          Download Video + Audio
+        </button>
+        <button class="action-btn secondary" id="openMergeToolBtn">
+          <span class="icon">🔧</span>
+          Open Online Merge Tool
+        </button>
         <div class="message warning" style="margin-top: 8px; font-size: 11px;">
-          ⚠️ Video và Audio tách riêng. Tải cả 2 rồi dùng FFmpeg merge.
+          ⚠️ Video và Audio tách riêng. Tải cả 2 rồi dùng FFmpeg/online tool merge.
         </div>
       `;
             break;
@@ -237,6 +316,12 @@ function attachEventListeners(type) {
         extractImagesBtn.addEventListener('click', handleExtractImages);
     }
 
+    // Download ZIP button
+    const downloadZipBtn = document.getElementById('downloadZipBtn');
+    if (downloadZipBtn) {
+        downloadZipBtn.addEventListener('click', handleDownloadZip);
+    }
+
     // Open HTML View button (Sheets)
     const openHtmlViewBtn = document.getElementById('openHtmlViewBtn');
     if (openHtmlViewBtn) {
@@ -247,6 +332,12 @@ function attachEventListeners(type) {
     const openMobileBasicBtn = document.getElementById('openMobileBasicBtn');
     if (openMobileBasicBtn) {
         openMobileBasicBtn.addEventListener('click', handleOpenMobileBasic);
+    }
+
+    // Export SVG button (Slides)
+    const exportSvgBtn = document.getElementById('exportSvgBtn');
+    if (exportSvgBtn) {
+        exportSvgBtn.addEventListener('click', handleExportSvg);
     }
 
     // Open HTML Present button (Slides)
@@ -280,6 +371,31 @@ function attachEventListeners(type) {
     const openAudioBtn = document.getElementById('openAudioBtn');
     if (openAudioBtn) {
         openAudioBtn.addEventListener('click', () => handleOpenUrl('audioUrlInput'));
+    }
+
+    // Download Both button
+    const downloadBothBtn = document.getElementById('downloadBothBtn');
+    if (downloadBothBtn) {
+        downloadBothBtn.addEventListener('click', handleDownloadBoth);
+    }
+
+    // Open Merge Tool button
+    const openMergeToolBtn = document.getElementById('openMergeToolBtn');
+    if (openMergeToolBtn) {
+        openMergeToolBtn.addEventListener('click', () => {
+            chrome.tabs.create({ url: 'https://www.veed.io/tools/video-audio-merger' });
+        });
+    }
+
+    // Advanced Features
+    const nativePrintBtn = document.getElementById('nativePrintBtn');
+    if (nativePrintBtn) {
+        nativePrintBtn.addEventListener('click', handleNativePrint);
+    }
+
+    const extractTextBtn = document.getElementById('extractTextBtn');
+    if (extractTextBtn) {
+        extractTextBtn.addEventListener('click', handleExtractText);
     }
 
     // If video/pdf on Drive, request video URL from content script
@@ -340,6 +456,32 @@ async function handleExtractImages() {
 }
 
 /**
+ * Handle Download ZIP action
+ */
+async function handleDownloadZip() {
+    const autoScroll = document.getElementById('autoScrollOption')?.checked || true;
+
+    showProgress('Creating ZIP...');
+
+    try {
+        const response = await chrome.tabs.sendMessage(currentTab.id, {
+            action: 'downloadZip',
+            options: { autoScroll }
+        });
+
+        if (response.success) {
+            hideProgress();
+            showMessage('success', `✅ ZIP downloaded with ${response.count} images!`);
+        } else {
+            throw new Error(response.error || 'Unknown error');
+        }
+    } catch (error) {
+        hideProgress();
+        showMessage('error', `❌ ${error.message}`);
+    }
+}
+
+/**
  * Handle Open HTML View action (Sheets)
  */
 async function handleOpenHtmlView() {
@@ -351,6 +493,29 @@ async function handleOpenHtmlView() {
         await chrome.tabs.create({ url });
         showMessage('success', '✅ HTML view opened! Select all & copy data.');
     } catch (error) {
+        showMessage('error', `❌ ${error.message}`);
+    }
+}
+
+/**
+ * Handle Export CSV action (Sheets)
+ */
+async function handleExportCsv() {
+    showProgress('Exporting CSV...');
+
+    try {
+        const response = await chrome.tabs.sendMessage(currentTab.id, {
+            action: 'exportCsv'
+        });
+
+        if (response.success) {
+            hideProgress();
+            showMessage('success', `✅ CSV exported via ${response.method}!`);
+        } else {
+            throw new Error(response.error || 'Unknown error');
+        }
+    } catch (error) {
+        hideProgress();
         showMessage('error', `❌ ${error.message}`);
     }
 }
@@ -373,6 +538,39 @@ async function handleOpenMobileBasic() {
         showMessage('success', '✅ Mobile view opened! Right-click → Save As HTML.');
     } catch (error) {
         showMessage('error', `❌ ${error.message}`);
+    }
+}
+
+/**
+ * Handle Download Both Video & Audio
+ */
+async function handleDownloadBoth() {
+    const videoUrl = document.getElementById('videoUrlInput').value;
+    const audioUrl = document.getElementById('audioUrlInput').value;
+
+    if (!videoUrl || !audioUrl) {
+        showMessage('error', '❌ Missing video or audio URL. Play the video first.');
+        return;
+    }
+
+    try {
+        // Download Video
+        await chrome.downloads.download({
+            url: videoUrl,
+            filename: 'video_track.mp4',
+            saveAs: false
+        });
+
+        // Download Audio
+        await chrome.downloads.download({
+            url: audioUrl,
+            filename: 'audio_track.mp4',
+            saveAs: false
+        });
+
+        showMessage('success', '✅ Downloading both tracks! Use the Merge Tool to combine them.');
+    } catch (error) {
+        showMessage('error', `❌ Download failed: ${error.message}`);
     }
 }
 
@@ -420,6 +618,75 @@ async function handleExportCsv() {
 }
 
 /**
+ * Handle Native Print action
+ */
+async function handleNativePrint() {
+    showProgress('Preparing print...');
+
+    try {
+        const response = await chrome.tabs.sendMessage(currentTab.id, {
+            action: 'nativePrint'
+        });
+
+        if (response.success) {
+            hideProgress();
+            showMessage('success', '✅ Print dialog opened! Select "Save as PDF".');
+        } else {
+            throw new Error(response.error || 'Unknown error');
+        }
+    } catch (error) {
+        hideProgress();
+        showMessage('error', `❌ ${error.message}`);
+    }
+}
+
+/**
+ * Handle Extract Text action
+ */
+async function handleExtractText() {
+    showProgress('Extracting text...');
+
+    try {
+        const response = await chrome.tabs.sendMessage(currentTab.id, {
+            action: 'extractText'
+        });
+
+        if (response.success) {
+            hideProgress();
+            showMessage('success', `✅ Copied ${response.length} characters to clipboard!`);
+        } else {
+            throw new Error(response.error || 'Unknown error');
+        }
+    } catch (error) {
+        hideProgress();
+        showMessage('error', `❌ ${error.message}`);
+    }
+}
+
+/**
+ * Handle Export SVG action
+ */
+async function handleExportSvg() {
+    showProgress('Exporting SVG...');
+
+    try {
+        const response = await chrome.tabs.sendMessage(currentTab.id, {
+            action: 'exportSvg'
+        });
+
+        if (response.success) {
+            hideProgress();
+            showMessage('success', `✅ SVG exported with ${response.count} layers!`);
+        } else {
+            throw new Error(response.error || 'Unknown error');
+        }
+    } catch (error) {
+        hideProgress();
+        showMessage('error', `❌ ${error.message}`);
+    }
+}
+
+/**
  * Request video URL from content script
  */
 async function requestVideoUrl() {
@@ -446,6 +713,12 @@ async function requestVideoUrl() {
 
             if (audioUrlInput) audioUrlInput.value = response.audioUrl;
             if (openAudioBtn) openAudioBtn.disabled = false;
+        }
+
+        // Enable Download Both button if both are present
+        if (response.videoUrl && response.audioUrl) {
+            const downloadBothBtn = document.getElementById('downloadBothBtn');
+            if (downloadBothBtn) downloadBothBtn.disabled = false;
         }
     } catch (error) {
         console.log('Video URL not yet available');

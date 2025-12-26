@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GDrive Downloader",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Download view-only files from Google Drive - Docs, Sheets, Slides, PDFs, and Videos",
   "author": "ThanhNguyxn",
   "homepage_url": "https://github.com/ThanhNguyxn/gdrive-downloader",
@@ -47,7 +47,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "lib/jspdf.umd.min.js"
+        "lib/jspdf.umd.min.js",
+        "lib/jszip.min.js"
       ],
       "matches": [
         "https://docs.google.com/*",

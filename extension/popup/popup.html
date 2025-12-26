@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GDrive Downloader</title>
     <link rel="stylesheet" href="popup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -16,7 +18,7 @@
                 <span class="logo-icon">📥</span>
                 <h1>GDrive Downloader</h1>
             </div>
-            <span class="version">v1.0</span>
+            <span class="version">v1.1 Premium</span>
         </header>
 
         <!-- Status Section -->
@@ -32,10 +34,10 @@
 
         <!-- Actions Section -->
         <section class="actions-section" id="actionsSection">
-            <!-- Actions will be populated by JavaScript based on page type -->
-            <div class="loading-placeholder">
-                <div class="spinner"></div>
-                <p>Analyzing page...</p>
+            <!-- Actions will be populated by JavaScript -->
+            <div class="loading-placeholder" style="text-align: center; padding: 20px; color: var(--text-secondary);">
+                <div class="spinner" style="margin: 0 auto 10px;"></div>
+                <p>Analyzing document...</p>
             </div>
         </section>
 
@@ -68,17 +70,10 @@
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-links">
-                <a href="https://github.com/ThanhNguyxn/gdrive-downloader" target="_blank" class="footer-link">
-                    ⭐ GitHub
-                </a>
-                <span class="divider">•</span>
-                <a href="https://buymeacoffee.com/thanhnguyxn" target="_blank" class="footer-link donate">
-                    ☕ Donate
-                </a>
-                <span class="divider">•</span>
-                <a href="https://github.com/sponsors/ThanhNguyxn" target="_blank" class="footer-link sponsor">
-                    💖 Sponsor
-                </a>
+                <a href="https://github.com/ThanhNguyxn/gdrive-downloader" target="_blank"
+                    class="footer-link">GitHub</a>
+                <a href="https://buymeacoffee.com/thanhnguyxn" target="_blank" class="footer-link">Donate</a>
+                <a href="#" id="reportIssueBtn" class="footer-link">Report Issue</a>
             </div>
         </footer>
     </div>

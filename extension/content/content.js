@@ -67,6 +67,45 @@
     }
 
     /**
+     * Load JSZip library
+     */
+    async function loadJSZip() {
+        if (typeof window.JSZip !== 'undefined') {
+            return Promise.resolve();
+        }
+
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+
+            // Handle Trusted Types if required
+            let scriptUrl = chrome.runtime.getURL('lib/jszip.min.js');
+
+            if (window.trustedTypes && window.trustedTypes.createPolicy) {
+                try {
+                    const policy = window.trustedTypes.createPolicy('gdrive-jszip-policy', {
+                        createScriptURL: (url) => url
+                    });
+                    scriptUrl = policy.createScriptURL(scriptUrl);
+                } catch (e) {
+                    // Policy might already exist
+                }
+            }
+
+            script.src = scriptUrl;
+            script.onload = () => resolve();
+            script.onerror = () => {
+                // Fallback to CDN
+                const cdnScript = document.createElement('script');
+                cdnScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+                cdnScript.onload = () => resolve();
+                cdnScript.onerror = reject;
+                document.head.appendChild(cdnScript);
+            };
+            document.head.appendChild(script);
+        });
+    }
+
+    /**
      * Send progress update to popup
      */
     function sendProgress(percent, message) {
@@ -91,12 +130,28 @@
 
         // Method 2: Canvas elements (Google's new method)
         // Look for canvas in document viewer containers
+        // Enhanced canvas selectors for better detection
         const canvasSelectors = [
-            '.kix-canvas-tile-content canvas',  // Google Docs
-            '.punch-viewer-content canvas',      // Google Slides
-            '.ndfHFb-c4YZDc-Wrber canvas',       // PDF viewer
-            '.drive-viewer-paginated-page canvas', // Drive PDF
-            'canvas[data-page]',                  // Generic page canvas
+            // Google Docs
+            '.kix-canvas-tile-content canvas',
+            '.kix-page-paginated canvas',
+            '.kix-page canvas',
+            // Google Slides
+            '.punch-viewer-content canvas',
+            '.slide-content canvas',
+            '.punch-present-iframe canvas',
+            // PDF viewer
+            '.ndfHFb-c4YZDc-Wrber canvas',
+            '.drive-viewer-paginated-page canvas',
+            '.drive-viewer-page-content canvas',
+            // Generic / new layouts
+            'canvas[data-page]',
+            'canvas[data-page-number]',
+            '[data-page-number] canvas',
+            '.pdf-viewer canvas',
+            // Document preview
+            '.drive-viewer-content canvas',
+            '.preview-pane canvas',
         ];
 
         canvasSelectors.forEach(selector => {
@@ -396,6 +451,344 @@
     }
 
     /**
+     * Download all pages as ZIP file
+     */
+    async function downloadAsZip(options = {}) {
+        const { autoScroll = true } = options;
+
+        try {
+            sendProgress(5, 'Loading libraries...');
+            await loadJSZip();
+
+            if (autoScroll) {
+                await autoScrollDocument();
+            }
+
+            sendProgress(20, 'Finding document pages...');
+            const pageElements = getPageElements();
+
+            if (pageElements.length === 0) {
+                throw new Error('No document pages found. Please scroll through the document first.');
+            }
+
+            sendProgress(25, `Found ${pageElements.length} pages. Creating ZIP...`);
+
+            const zip = new JSZip();
+            const totalPages = pageElements.length;
+
+            for (let i = 0; i < pageElements.length; i++) {
+                const item = pageElements[i];
+                const progress = 25 + Math.floor((i / totalPages) * 65);
+                sendProgress(progress, `Processing page ${i + 1} of ${totalPages}...`);
+
+                const canvas = await elementToCanvas(item, 1);
+
+                // Convert canvas to blob
+                const blob = await new Promise(resolve => {
+                    canvas.toBlob(resolve, 'image/png');
+                });
+
+                // Add to zip
+                const fileName = `page-${String(i + 1).padStart(3, '0')}.png`;
+                zip.file(fileName, blob);
+
+                // Allow UI to update
+                await new Promise(r => setTimeout(r, 10));
+            }
+
+            sendProgress(95, 'Generating ZIP file...');
+
+            // Generate and download ZIP
+            const zipBlob = await zip.generateAsync({
+                type: 'blob',
+                compression: 'DEFLATE',
+                compressionOptions: { level: 6 }
+            });
+
+            // Get filename from page title
+            let fileName = 'document.zip';
+            try {
+                const title = document.title
+                    .replace(' - Google Docs', '')
+                    .replace(' - Google Slides', '')
+                    .replace(' - Google Drive', '')
+                    .replace(/[^a-z0-9\u00C0-\u024F\u1E00-\u1EFF]/gi, '_')
+                    .toLowerCase()
+                    .slice(0, 50);
+                if (title) {
+                    fileName = `${title}_images.zip`;
+                }
+            } catch (e) { }
+
+            // Download ZIP
+            const downloadUrl = URL.createObjectURL(zipBlob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(downloadUrl);
+
+            sendProgress(100, 'ZIP download complete!');
+            return { success: true, count: pageElements.length };
+        } catch (error) {
+            console.error('ZIP creation error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+
+    /**
+     * Export Google Sheets as CSV using URL manipulation
+     * Tries multiple methods: direct export, htmlview parsing
+     */
+    async function exportSheetsCsv() {
+        try {
+            sendProgress(10, 'Attempting to export CSV...');
+
+            const url = window.location.href;
+
+            // Extract spreadsheet ID and gid
+            const idMatch = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
+            const gidMatch = url.match(/gid=(\d+)/);
+
+            if (!idMatch) {
+                throw new Error('Could not extract spreadsheet ID from URL');
+            }
+
+            const spreadsheetId = idMatch[1];
+            const gid = gidMatch ? gidMatch[1] : '0';
+
+            // Method 1: Try direct CSV export URL
+            sendProgress(30, 'Trying direct export...');
+            const exportUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=csv&gid=${gid}`;
+
+            try {
+                const response = await fetch(exportUrl, {
+                    credentials: 'include',
+                    redirect: 'follow'
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    if (blob.size > 0 && blob.type.includes('csv') || blob.type.includes('text')) {
+                        const downloadUrl = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = downloadUrl;
+                        link.download = `sheet_${gid}.csv`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(downloadUrl);
+
+                        sendProgress(100, 'CSV exported successfully!');
+                        return { success: true, method: 'direct_export' };
+                    }
+                }
+            } catch (e) {
+                console.log('Direct export failed, trying htmlview...');
+            }
+
+            // Method 2: Try htmlview and parse table
+            sendProgress(50, 'Trying HTML view method...');
+            const htmlViewUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/htmlview`;
+
+            try {
+                const response = await fetch(htmlViewUrl, { credentials: 'include' });
+                if (response.ok) {
+                    const html = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const table = doc.querySelector('table');
+
+                    if (table) {
+                        // Convert table to CSV
+                        const rows = Array.from(table.querySelectorAll('tr'));
+                        const csvContent = rows.map(row => {
+                            const cells = Array.from(row.querySelectorAll('td, th'));
+                            return cells.map(cell => {
+                                let text = cell.textContent || '';
+                                // Escape quotes and wrap in quotes if contains comma
+                                text = text.replace(/"/g, '""');
+                                if (text.includes(',') || text.includes('\n') || text.includes('"')) {
+                                    text = `"${text}"`;
+                                }
+                                return text;
+                            }).join(',');
+                        }).join('\n');
+
+                        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                        const downloadUrl = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = downloadUrl;
+                        link.download = `sheet_${gid}.csv`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(downloadUrl);
+
+                        sendProgress(100, 'CSV exported via HTML parsing!');
+                        return { success: true, method: 'htmlview' };
+                    }
+                }
+            } catch (e) {
+                console.log('HTML view method failed:', e);
+            }
+
+            // Method 3: Copy visible data from current page
+            sendProgress(70, 'Trying to extract visible data...');
+            const visibleCells = document.querySelectorAll('.cell-input, .softmerge-inner');
+            if (visibleCells.length > 0) {
+                throw new Error('Visible data found but extraction not implemented. Try using HTML View button instead.');
+            }
+
+            throw new Error('All export methods failed. The sheet might have strict view-only restrictions.');
+        } catch (error) {
+            console.error('CSV export error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+
+    /**
+     * Try Native Print (Selectable PDF Attempt)
+     * Injects CSS to unhide print controls and triggers window.print()
+     */
+    async function tryNativePrint() {
+        try {
+            sendProgress(20, 'Injecting print styles...');
+
+            // Create style to force show content during print
+            const style = document.createElement('style');
+            style.textContent = `
+                @media print {
+                    body * {
+                        visibility: visible !important;
+                        display: block !important;
+                    }
+                    .kix-appview-editor {
+                        overflow: visible !important;
+                        height: auto !important;
+                    }
+                    /* Hide UI elements */
+                    .docs-gm-header, .docs-explore-widget, .docs-companion-app-switcher-container {
+                        display: none !important;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            sendProgress(50, 'Opening print dialog...');
+
+            // Small delay to let styles apply
+            await new Promise(r => setTimeout(r, 500));
+
+            window.print();
+
+            sendProgress(100, 'Print dialog opened!');
+            return { success: true };
+        } catch (error) {
+            console.error('Native print error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+
+    /**
+     * Extract Text Only
+     * Parses DOM to find text content
+     */
+    async function extractText() {
+        try {
+            sendProgress(10, 'Scanning document for text...');
+
+            let textContent = '';
+
+            // Strategy 1: Google Docs (.kix-lineview-content)
+            const textNodes = document.querySelectorAll('.kix-lineview-content');
+            if (textNodes.length > 0) {
+                sendProgress(40, `Found ${textNodes.length} text lines...`);
+                textNodes.forEach(node => {
+                    textContent += node.innerText + '\n';
+                });
+            }
+            // Strategy 2: Google Slides (SVG text)
+            else {
+                const svgText = document.querySelectorAll('g text');
+                if (svgText.length > 0) {
+                    sendProgress(40, `Found ${svgText.length} text elements...`);
+                    svgText.forEach(node => {
+                        textContent += node.textContent + '\n';
+                    });
+                }
+                // Strategy 3: Generic fallback
+                else {
+                    textContent = document.body.innerText;
+                }
+            }
+
+            if (!textContent || textContent.trim().length === 0) {
+                throw new Error('No text content found to extract.');
+            }
+
+            sendProgress(80, 'Copying to clipboard...');
+
+            // Copy to clipboard
+            await navigator.clipboard.writeText(textContent);
+
+            sendProgress(100, 'Text copied to clipboard!');
+            return { success: true, length: textContent.length };
+        } catch (error) {
+            console.error('Text extraction error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+
+    /**
+     * Export Page as SVG (Slides)
+     * Tries to find and serialize SVG elements
+     */
+    async function exportSvg() {
+        try {
+            sendProgress(10, 'Scanning for SVG content...');
+
+            // Target Google Slides SVG container
+            const svgElements = document.querySelectorAll('.punch-viewer-content svg, .slide-content svg');
+
+            if (svgElements.length === 0) {
+                throw new Error('No SVG content found. This slide might be rendered as Canvas/Image.');
+            }
+
+            sendProgress(40, `Found ${svgElements.length} SVG layers...`);
+
+            // Combine SVGs if multiple (naive approach)
+            let combinedSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">';
+
+            svgElements.forEach(svg => {
+                combinedSvg += svg.innerHTML;
+            });
+
+            combinedSvg += '</svg>';
+
+            // Create Blob
+            const blob = new Blob([combinedSvg], { type: 'image/svg+xml;charset=utf-8' });
+            const downloadUrl = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `slide_export_${Date.now()}.svg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(downloadUrl);
+
+            sendProgress(100, 'SVG exported successfully!');
+            return { success: true, count: svgElements.length };
+        } catch (error) {
+            console.error('SVG export error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+
+    /**
      * Clean video URL for direct download
      */
     function cleanVideoUrl(url) {
@@ -508,6 +901,40 @@
                 extractImages().then(sendResponse);
                 return true;
 
+            case 'downloadZip':
+                downloadAsZip(message.options).then(sendResponse);
+                return true;
+
+            case 'exportCsv':
+                exportSheetsCsv().then(sendResponse);
+                return true;
+
+            case 'nativePrint':
+                tryNativePrint().then(sendResponse);
+                return true;
+
+            case 'extractText':
+                extractText().then(sendResponse);
+                return true;
+
+            case 'exportSvg':
+                exportSvg().then(sendResponse);
+                return true;
+                convertToPdf(message.options).then(sendResponse);
+                return true;
+
+            case 'extractImages':
+                extractImages().then(sendResponse);
+                return true;
+
+            case 'downloadZip':
+                downloadAsZip(message.options).then(sendResponse);
+                return true;
+
+            case 'exportCsv':
+                exportSheetsCsv().then(sendResponse);
+                return true;
+
             case 'getVideoUrl':
                 sendResponse(getVideoUrl());
                 return false;
@@ -529,4 +956,30 @@
     }
 
     console.log('GDrive Downloader content script loaded (improved version)');
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Alt + P: Download PDF
+        if (e.altKey && e.code === 'KeyP') {
+            e.preventDefault();
+            sendProgress(0, 'Shortcut: Starting PDF download...');
+            convertToPdf({ autoScroll: true });
+        }
+
+        // Alt + Z: Download ZIP
+        if (e.altKey && e.code === 'KeyZ') {
+            e.preventDefault();
+            sendProgress(0, 'Shortcut: Starting ZIP download...');
+            downloadAsZip({ autoScroll: true });
+        }
+
+        // Alt + S: Export SVG (Slides only)
+        if (e.altKey && e.code === 'KeyS') {
+            if (window.location.href.includes('presentation')) {
+                e.preventDefault();
+                sendProgress(0, 'Shortcut: Exporting SVG...');
+                exportSvg();
+            }
+        }
+    });
+
 })();

@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-blue?style=flat-square" alt="Version"/>
+  <img src="https://img.shields.io/badge/version-2.0.0-blue?style=flat-square" alt="Version"/>
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License"/>
 </p>
 
@@ -30,23 +30,26 @@
 
 ---
 
-## ✨ Features
+## ✨ Features (v2.0)
 
 <table>
 <tr>
 <td width="50%">
 
 ### 📄 Google Docs
-- ⬇️ Download as PDF
-- 🖼️ Extract as Images
+- ⬇️ **Download as PDF** (High Res)
+- 📦 **Download as ZIP** (All pages)
+- 🖼️ **Extract as Images**
+- 🖨️ **Try Native Print** (Selectable Text)
+- 📝 **Extract Text Only** (Raw Text)
 - 📱 Open Mobile View
 
 </td>
 <td width="50%">
 
 ### 📊 Google Sheets
-- 🌐 Open HTML View
-- 📥 Try Export CSV
+- 🌐 **Open HTML View** (Copy Data)
+- 📥 **Try Export CSV** (Direct Export)
 - 🖨️ Print to PDF
 
 </td>
@@ -55,17 +58,21 @@
 <td width="50%">
 
 ### 🎨 Google Slides
-- ⬇️ Download as PDF
-- 🖼️ Extract as Images
+- ⬇️ **Download as PDF**
+- ✒️ **Export Page as SVG** (Vector)
+- 📦 **Download as ZIP**
+- 🖼️ **Extract as Images**
+- 📝 **Extract Text Only**
 - 🎭 Open HTML Present
 
 </td>
 <td width="50%">
 
 ### 🎬 Protected Videos
-- 📹 Auto-detect Video URL
-- 🔊 Auto-detect Audio URL
+- 📹 **Auto-detect Video & Audio**
+- ⬇️ **Download Both Tracks**
 - 🔗 Direct download links
+- 🔧 **Merge Tool Integration**
 
 </td>
 </tr>
@@ -82,7 +89,6 @@
 | ![Brave](https://img.shields.io/badge/-Brave-FB542B?logo=brave&logoColor=white) | ✅ Full Support | Developer Mode |
 | ![Opera](https://img.shields.io/badge/-Opera-FF1B2D?logo=opera&logoColor=white) | ✅ Full Support | Developer Mode |
 | ![Vivaldi](https://img.shields.io/badge/-Vivaldi-EF3939?logo=vivaldi&logoColor=white) | ✅ Full Support | Developer Mode |
-| ![Firefox](https://img.shields.io/badge/-Firefox-FF7139?logo=firefox&logoColor=white) | 🔄 Coming Soon | - |
 
 ---
 
@@ -105,44 +111,46 @@
 
 </details>
 
-<details>
-<summary><b>🟠 Firefox (Coming Soon)</b></summary>
-
-Firefox support is in development. Stay tuned!
-
-</details>
-
 ---
 
 ## 📖 Usage Guide
 
 ### 📄 For Google Docs
-
-| Step | Action |
-|:----:|--------|
-| 1️⃣ | Open any view-only Google Doc |
-| 2️⃣ | Click the extension icon |
-| 3️⃣ | Choose **Download as PDF** or other options |
-| 4️⃣ | Wait for processing... Done! 🎉 |
+| Feature | Action |
+|:-------:|--------|
+| **PDF** | Click **Download as PDF** for standard image-based PDF. |
+| **Selectable** | Click **Try Native Print** to attempt a selectable text PDF. |
+| **Text** | Click **Extract Text Only** to copy raw text to clipboard. |
 
 ### 📊 For Google Sheets
+| Feature | Action |
+|:-------:|--------|
+| **Excel** | Click **Open HTML View** -> Select All -> Copy -> Paste to Excel. |
+| **CSV** | Click **Try Export CSV** for direct download (if available). |
 
-| Step | Action |
-|:----:|--------|
-| 1️⃣ | Open view-only Google Sheet |
-| 2️⃣ | Click **Open HTML View** |
-| 3️⃣ | Select All (`Ctrl+A`) and Copy (`Ctrl+C`) |
-| 4️⃣ | Paste into Excel 🎉 |
+### 🎨 For Google Slides
+| Feature | Action |
+|:-------:|--------|
+| **Vector** | Click **Export Page as SVG** for high-quality vector export. |
+| **Images** | Click **Extract as Images** or **Download as ZIP** for all slides. |
 
 ### 🎬 For Videos
-
 | Step | Action |
 |:----:|--------|
-| 1️⃣ | Open video on Google Drive |
-| 2️⃣ | **Play the video first!** ⚠️ |
-| 3️⃣ | Click extension icon |
-| 4️⃣ | Video and Audio URLs appear automatically |
-| 5️⃣ | Click to download, merge with FFmpeg if needed |
+| 1️⃣ | Open video on Google Drive & **Play it** ⚠️ |
+| 2️⃣ | Click extension icon -> Wait for URLs to appear |
+| 3️⃣ | Click **Download Video + Audio** (Downloads 2 files) |
+| 4️⃣ | Use **Open Online Merge Tool** to combine them |
+
+---
+
+## ⌨️ Keyboard Shortcuts
+
+| Shortcut | Action |
+|:--------:|--------|
+| `Alt + P` | Download PDF |
+| `Alt + Z` | Download ZIP |
+| `Alt + S` | Export SVG (Slides only) |
 
 ---
 
@@ -150,8 +158,9 @@ Firefox support is in development. Stay tuned!
 
 | Option | Description |
 |--------|-------------|
-| 🔍 **High Resolution** | Creates higher quality PDFs |
-| 📜 **Auto-scroll** | Automatically loads all pages |
+| 🔍 **High Resolution** | Creates higher quality PDFs (Slower) |
+| 📜 **Auto-scroll** | Automatically loads all pages before downloading |
+| 💾 **Persistence** | Settings are saved automatically |
 
 ---
 
@@ -159,11 +168,11 @@ Firefox support is in development. Stay tuned!
 
 ```
 📦 extension/
-├── 📄 manifest.json    # Extension config (Manifest V3)
-├── 📂 popup/           # UI components
-├── 📂 content/         # Page scripts
+├── 📄 manifest.json    # Extension config (v2.0)
+├── 📂 popup/           # Premium UI (Glassmorphism)
+├── 📂 content/         # Advanced Logic (Native Print, SVG, etc)
 ├── 📂 background/      # Service worker
-├── 📂 lib/             # jsPDF library
+├── 📂 lib/             # jsPDF, JSZip, FFmpeg
 └── 📂 icons/           # Extension icons
 ```
 
